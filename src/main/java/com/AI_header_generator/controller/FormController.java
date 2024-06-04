@@ -1,7 +1,7 @@
-package com.AI_header_generator;
+package com.AI_header_generator.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.AI_header_generator.model.FormData;
+import com.AI_header_generator.service.ChatGPTService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;

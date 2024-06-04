@@ -1,4 +1,4 @@
-package com.AI_header_generator;
+package com.AI_header_generator.model;
 
 public class FormData {
     private String formField1;
