@@ -1,7 +1,6 @@
 package com.AI_header_generator.services;
 
 import com.AI_header_generator.models.User;
-import com.AI_header_generator.models.UserAdapter;
 import com.AI_header_generator.repositories.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
