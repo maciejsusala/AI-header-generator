@@ -1,6 +1,6 @@
-package com.AI_header_generator.repository;
+package com.AI_header_generator.repositories;
 
-import com.AI_header_generator.model.User;
+import com.AI_header_generator.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

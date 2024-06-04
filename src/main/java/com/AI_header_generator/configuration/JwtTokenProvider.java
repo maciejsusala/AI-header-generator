@@ -1,6 +1,6 @@
 package com.AI_header_generator.configuration;
 
-import com.AI_header_generator.model.UserAdapter;
+import com.AI_header_generator.models.UserAdapter;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.security.core.Authentication;

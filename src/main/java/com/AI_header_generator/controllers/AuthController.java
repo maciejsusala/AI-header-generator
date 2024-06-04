@@ -1,8 +1,8 @@
-package com.AI_header_generator.controller;
+package com.AI_header_generator.controllers;
 
-import com.AI_header_generator.model.AuthenticationRequest;
-import com.AI_header_generator.model.AuthenticationResponse;
-import com.AI_header_generator.service.UserService;
+import com.AI_header_generator.models.AuthenticationRequest;
+import com.AI_header_generator.models.AuthenticationResponse;
+import com.AI_header_generator.services.UserService;
 import com.AI_header_generator.configuration.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

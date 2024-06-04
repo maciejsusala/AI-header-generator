@@ -1,4 +1,4 @@
-package com.AI_header_generator.service;
+package com.AI_header_generator.services;
 
 import com.theokanning.openai.completion.chat.ChatCompletionChoice;
 import com.theokanning.openai.completion.chat.ChatCompletionRequest;

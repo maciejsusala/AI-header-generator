@@ -1,4 +1,4 @@
-package com.AI_header_generator.model;
+package com.AI_header_generator.models;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

@@ -1,4 +1,4 @@
-package com.AI_header_generator.model;
+package com.AI_header_generator.models;
 
 public class AuthenticationResponse {
     private String jwt;

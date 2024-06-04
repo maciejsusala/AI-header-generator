@@ -1,8 +1,8 @@
-package com.AI_header_generator.service;
+package com.AI_header_generator.services;
 
-import com.AI_header_generator.model.User;
-import com.AI_header_generator.model.UserAdapter;
-import com.AI_header_generator.repository.UserRepository;
+import com.AI_header_generator.models.User;
+import com.AI_header_generator.models.UserAdapter;
+import com.AI_header_generator.repositories.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

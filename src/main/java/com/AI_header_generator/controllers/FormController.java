@@ -1,7 +1,7 @@
-package com.AI_header_generator.controller;
+package com.AI_header_generator.controllers;
 
-import com.AI_header_generator.model.FormData;
-import com.AI_header_generator.service.ChatGPTService;
+import com.AI_header_generator.models.FormData;
+import com.AI_header_generator.services.ChatGPTService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
