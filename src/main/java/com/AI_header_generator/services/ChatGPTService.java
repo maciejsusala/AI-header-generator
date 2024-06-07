@@ -16,6 +16,7 @@ public class ChatGPTService {
     private final OpenAiService openAiService;
 
     public ChatGPTService(@Value("${OPENAI_KEY}") String openAiKey) {
+        // to powinno być zadeklarowane jako Bean nowy w jakiejś klasie konfiguracyjnej
         this.openAiService = new OpenAiService(openAiKey);
     }
 

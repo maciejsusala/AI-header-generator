@@ -17,6 +17,8 @@ public class JwtTokenProvider {
     public String generateToken(Authentication authentication) {
         UserAdapter userPrincipal = (UserAdapter) authentication.getPrincipal();
 
+        // TODO date juz przestarzały
+        // spróbuj użyć LocalDateTime albo podobnego z nowego api
         Date now = new Date();
         // 1 hour
         long jwtExpirationInMs = 3600000;
