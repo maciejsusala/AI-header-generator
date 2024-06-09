@@ -39,7 +39,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
-                // Add additional details from JWT to Authentication object
+
                 Claims claims = Jwts.parser()
                         .setSigningKey(tokenProvider.getKey())
                         .build()
@@ -50,16 +50,15 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
         } catch (Exception ex) {
-            // nie powinieneś tu rzucać jednak tego wyjątku, żeby zasygnalizować błąd podczas autoryzacji?
             logger.error("Could not set user authentication in security context", ex);
+            throw new ServletException("Could not set user authentication in security context", ex);
+        } finally {
+            filterChain.doFilter(request, response);
         }
-
-        filterChain.doFilter(request, response);
     }
 
     private String getJwtFromRequest(HttpServletRequest request) {
         String bearerToken = request.getHeader("Authorization");
-        System.out.println("Authorization header: " + bearerToken);
         if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
             return bearerToken.substring(7, bearerToken.length());
         } else {
