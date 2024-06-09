@@ -2,6 +2,7 @@ package com.AI_header_generator.configuration;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,6 +18,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
+@Slf4j
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private JwtTokenProvider tokenProvider;
@@ -51,7 +53,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             }
         } catch (Exception ex) {
             // nie powinieneś tu rzucać jednak tego wyjątku, żeby zasygnalizować błąd podczas autoryzacji?
-            logger.error("Could not set user authentication in security context", ex);
+            log.error("Could not set user authentication in security context", ex);
         }
 
         filterChain.doFilter(request, response);
@@ -59,14 +61,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private String getJwtFromRequest(HttpServletRequest request) {
         String bearerToken = request.getHeader("Authorization");
-        System.out.println("Authorization header: " + bearerToken);
+        log.info("Authorization header: " + bearerToken);
         if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
             return bearerToken.substring(7, bearerToken.length());
         } else {
             if(bearerToken == null) {
-                System.out.println("Authorization header is missing");
+               log.warn("Authorization header is missing");
             } else if(!bearerToken.startsWith("Bearer ")) {
-                System.out.println("Authorization header does not start with Bearer ");
+                log.warn("Authorization header does not start with Bearer ");
             }
         }
         return null;

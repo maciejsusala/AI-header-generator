@@ -3,12 +3,14 @@ package com.AI_header_generator.configuration;
 import com.AI_header_generator.models.UserAdapter;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
 import java.util.Date;
 
+@Slf4j
 @Component
 public class JwtTokenProvider {
 
@@ -49,15 +51,15 @@ public class JwtTokenProvider {
             Jwts.parser().setSigningKey(key).build().parseClaimsJws(authToken);
             return true;
         } catch (SignatureException ex) {
-            System.out.println("Invalid JWT signature");
+            log.error("Invalid JWT signature");
         } catch (MalformedJwtException ex) {
-            System.out.println("Invalid JWT token" + authToken);
+            log.error("Invalid JWT token" + authToken);
         } catch (ExpiredJwtException ex) {
-            System.out.println("Expired JWT token");
+            log.error("Expired JWT token");
         } catch (UnsupportedJwtException ex) {
-            System.out.println("Unsupported JWT token");
+            log.error("Unsupported JWT token");
         } catch (IllegalArgumentException ex) {
-            System.out.println("JWT claims string is empty.");
+            log.error("JWT claims string is empty.");
         }
         return false;
     }
