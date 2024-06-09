@@ -3,10 +3,14 @@ package com.AI_header_generator.configuration;
 import com.AI_header_generator.models.UserAdapter;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
+import io.jsonwebtoken.security.SecurityException;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
+import java.time.Duration;
+import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Component
@@ -17,38 +21,34 @@ public class JwtTokenProvider {
     public String generateToken(Authentication authentication) {
         UserAdapter userPrincipal = (UserAdapter) authentication.getPrincipal();
 
-        // TODO date juz przestarzały
-        // spróbuj użyć LocalDateTime albo podobnego z nowego api
-        Date now = new Date();
-        // 1 hour
-        long jwtExpirationInMs = 3600000;
-        Date expiryDate = new Date(now.getTime() + jwtExpirationInMs);
+        Instant now = Instant.now();
+        Instant expiryDate = now.plus(Duration.ofDays(1));
 
         return Jwts.builder()
-                .setSubject(userPrincipal.getUsername())
+                .subject(userPrincipal.getUsername())
                 .claim("email", userPrincipal.getEmail())
-                .claim("role", userPrincipal.getAuthorities().stream().findFirst().get().getAuthority())
-                .setIssuedAt(new Date())
-                .setExpiration(expiryDate)
+                .claim("role", userPrincipal.getAuthorities().stream().findFirst().orElseThrow(() -> new RuntimeException("No authority found")).getAuthority())
+                .issuedAt(Date.from(now))
+                .expiration(Date.from(expiryDate))
                 .signWith(key)
                 .compact();
     }
 
     public String getUsernameFromJWT(String token) {
         Claims claims = Jwts.parser()
-                .setSigningKey(key)
+                .verifyWith(key)
                 .build()
-                .parseClaimsJws(token)
-                .getBody();
+                .parseSignedClaims(token)
+                .getPayload();
 
         return claims.getSubject();
     }
 
     public boolean validateToken(String authToken) {
         try {
-            Jwts.parser().setSigningKey(key).build().parseClaimsJws(authToken);
+            Jwts.parser().verifyWith(key).build().parseSignedClaims(authToken);
             return true;
-        } catch (SignatureException ex) {
+        } catch (SecurityException ex) {
             System.out.println("Invalid JWT signature");
         } catch (MalformedJwtException ex) {
             System.out.println("Invalid JWT token" + authToken);
